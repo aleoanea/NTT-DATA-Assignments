@@ -1,4 +1,4 @@
-package org.nttdata.assignment1.repository;
+package org.nttdata.repository;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package org.nttdata.assignment1.controller;
+package org.nttdata.controller;
 
-import org.nttdata.assignment1.domain.Pet;
-import org.nttdata.assignment1.service.PetService;
+import org.nttdata.domain.Pet;
+import org.nttdata.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

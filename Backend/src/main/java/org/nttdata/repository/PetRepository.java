@@ -1,6 +1,6 @@
-package org.nttdata.assignment1.repository;
+package org.nttdata.repository;
 
-import org.nttdata.assignment1.domain.Pet;
+import org.nttdata.domain.Pet;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 @Repository
-public class PetRepository implements org.nttdata.assignment1.repository.Repository<Pet> {
+public class PetRepository implements org.nttdata.repository.Repository<Pet> {
 
     private List<Pet> generatePetsList() {
         List<Pet> petsList = new ArrayList<>();

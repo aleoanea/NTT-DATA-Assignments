@@ -11,8 +11,8 @@
     <groupId>org.nttdata</groupId>
     <artifactId>Backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Assignment1</name>
-    <description>Assignment1</description>
+    <name>BackendApp</name>
+    <description>BackendApplication</description>
     <url/>
     <licenses>
         <license/>

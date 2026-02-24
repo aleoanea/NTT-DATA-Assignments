@@ -1,4 +1,4 @@
-package org.nttdata.assignment1.domain;
+package org.nttdata.domain;
 
 public class Pet {
     private String name;

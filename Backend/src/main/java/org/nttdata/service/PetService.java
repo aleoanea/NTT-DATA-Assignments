@@ -1,7 +1,7 @@
-package org.nttdata.assignment1.service;
+package org.nttdata.service;
 
-import org.nttdata.assignment1.domain.Pet;
-import org.nttdata.assignment1.repository.Repository;
+import org.nttdata.domain.Pet;
+import org.nttdata.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
