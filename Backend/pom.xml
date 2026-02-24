@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.nttdata</groupId>
-    <artifactId>Assignment1</artifactId>
+    <artifactId>Backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Assignment1</name>
     <description>Assignment1</description>
