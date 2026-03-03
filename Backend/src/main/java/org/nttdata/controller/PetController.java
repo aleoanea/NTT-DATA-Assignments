@@ -4,10 +4,7 @@ import org.nttdata.dto.PetDto;
 import org.nttdata.service.impl.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,21 @@ public class PetController {
     @GetMapping("/pets/{id}")
     public ResponseEntity<PetDto> getPetById(@PathVariable Long id){
         return ResponseEntity.ok().body(petService.getPetById(id));
+    }
+
+    @PostMapping("/pets")
+    public ResponseEntity<PetDto> savePet(@RequestBody PetDto petDto){
+        return ResponseEntity.ok().body(petService.savePet(petDto));
+    }
+
+    @DeleteMapping("/pets/{id}")
+    public ResponseEntity<PetDto> deletePet(@PathVariable Long id){
+        return ResponseEntity.ok().body(petService.deletePet(id));
+    }
+
+    @PutMapping("/pets/{id}")
+    public ResponseEntity<PetDto> updatePet(@PathVariable Long id, @RequestBody PetDto petDto){
+        //returns the old pet
+        return ResponseEntity.ok().body(petService.updatePet(id, petDto));
     }
 }

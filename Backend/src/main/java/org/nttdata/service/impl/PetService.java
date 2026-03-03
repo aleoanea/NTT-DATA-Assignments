@@ -1,5 +1,6 @@
 package org.nttdata.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.nttdata.domain.Pet;
 import org.nttdata.dto.PetDto;
 import org.nttdata.repository.IPetRepository;
@@ -22,11 +23,17 @@ public class PetService implements IPetService {
         return new PetDto(pet.getId(), pet.getName(), pet.getOwner(), pet.getType(), pet.getRace(), pet.getRealAge(), pet.getHumanAge());
     }
 
+    private Pet transformFromDto(PetDto petDto){
+        return new Pet(petDto.name(),petDto.owner(),petDto.type(),petDto.race(),petDto.realAge(),petDto.humanAge());
+    }
+
+    @Override
     public List<PetDto> getPetsList() {
         List<Pet> pets = petRepository.findAll();
         return pets.stream().map(this::transformToDto).collect(Collectors.toList());
     }
 
+    @Override
     public List<PetDto> getPetListByType(String type) {
         List<Pet> petList = petRepository.findAll();
         List<Pet> newList = new ArrayList<>();
@@ -40,6 +47,7 @@ public class PetService implements IPetService {
         return newList.stream().map(this::transformToDto).collect(Collectors.toList());
     }
 
+    @Override
     public List<PetDto> getListSorted(String sort) {
         List<Pet> petList = petRepository.findAll();
 
@@ -67,6 +75,7 @@ public class PetService implements IPetService {
         };
     }
 
+    @Override
     public List<PetDto> getListSortedAndFiltered(String type, String sort) {
         List<PetDto> petList = getListSorted(sort);
         List<PetDto> newList = new ArrayList<>();
@@ -82,6 +91,46 @@ public class PetService implements IPetService {
     @Override
     public PetDto getPetById(Long id) {
         var Opet = petRepository.findById(id);
-        return Opet.map(this::transformToDto).orElse(null);
+        PetDto petDto = null;
+        if(Opet.isPresent()){
+            petDto = transformToDto(Opet.get());
+        }
+        return petDto;
     }
+
+    @Override
+    @Transactional
+    public PetDto savePet(PetDto petDto) {
+        Pet pet = transformFromDto(petDto);
+        return transformToDto(petRepository.save(pet));
+    }
+
+    @Override
+    @Transactional
+    public PetDto deletePet(Long id) {
+        var pet = petRepository.findById(id);
+        PetDto petDto=null;
+        if(pet.isPresent()){
+            petDto=transformToDto(pet.get());
+        }
+        petRepository.deleteById(id);
+        return petDto;
+    }
+
+    @Override
+    @Transactional
+    public PetDto updatePet(Long id, PetDto petDto) {
+        var pet = petRepository.findById(id);
+        PetDto oldPetDto=null;
+        if(pet.isPresent()){
+            oldPetDto =transformToDto(pet.get());
+        }
+
+        //put means we are not just updating a field, but change the object entirely
+        //patch is for updating fields
+        petRepository.deleteById(id);
+        petRepository.save(transformFromDto(petDto));
+        return oldPetDto;
+    }
+
 }
