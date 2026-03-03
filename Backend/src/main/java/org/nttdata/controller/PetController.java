@@ -1,7 +1,7 @@
 package org.nttdata.controller;
 
-import org.nttdata.domain.Pet;
-import org.nttdata.service.PetService;
+import org.nttdata.dto.PetDto;
+import org.nttdata.service.impl.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +16,7 @@ public class PetController {
     PetService petService;
 
     @GetMapping("/pets")
-    public List<Pet> getPets(@RequestParam(required = false) String type, @RequestParam(required = false) String sort){
+    public List<PetDto> getPets(@RequestParam(required = false) String type, @RequestParam(required = false) String sort){
         if(type!=null){
             if(sort!=null){
                 return petService.getListSortedAndFiltered(type,sort);
@@ -26,7 +26,7 @@ public class PetController {
             if(sort!=null){
                 return petService.getListSorted(sort);
             }
-            return petService.getPetList();
+            return petService.getPetsList();
         }
     }
 }
