@@ -3,7 +3,9 @@ package org.nttdata.controller;
 import org.nttdata.dto.PetDto;
 import org.nttdata.service.impl.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,17 +18,22 @@ public class PetController {
     PetService petService;
 
     @GetMapping("/pets")
-    public List<PetDto> getPets(@RequestParam(required = false) String type, @RequestParam(required = false) String sort){
+    public ResponseEntity<List<PetDto>> getPets(@RequestParam(required = false) String type, @RequestParam(required = false) String sort){
         if(type!=null){
             if(sort!=null){
-                return petService.getListSortedAndFiltered(type,sort);
+                return ResponseEntity.ok().body(petService.getListSortedAndFiltered(type,sort));
             }
-            return petService.getPetListByType(type);
+            return ResponseEntity.ok().body(petService.getPetListByType(type));
         } else {
             if(sort!=null){
-                return petService.getListSorted(sort);
+                return ResponseEntity.ok().body(petService.getListSorted(sort));
             }
-            return petService.getPetsList();
+            return ResponseEntity.ok().body(petService.getPetsList());
         }
+    }
+
+    @GetMapping("/pets/{id}")
+    public ResponseEntity<PetDto> getPetById(@PathVariable Long id){
+        return ResponseEntity.ok().body(petService.getPetById(id));
     }
 }

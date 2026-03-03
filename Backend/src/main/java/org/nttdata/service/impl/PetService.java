@@ -78,4 +78,10 @@ public class PetService implements IPetService {
         }
         return newList;
     }
+
+    @Override
+    public PetDto getPetById(Long id) {
+        var Opet = petRepository.findById(id);
+        return Opet.map(this::transformToDto).orElse(null);
+    }
 }

@@ -9,4 +9,5 @@ public interface IPetService {
     List<PetDto> getPetListByType(String type);
     List<PetDto> getListSorted(String sort);
     List<PetDto> getListSortedAndFiltered(String type, String sort);
+    PetDto getPetById(Long id);
 }
