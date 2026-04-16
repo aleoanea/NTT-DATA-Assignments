@@ -1,0 +1,31 @@
+package org.nttdata.dto;
+
+import org.nttdata.model.User;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class UserMapper {
+
+    public static UserDTO mapUserToUserDTO(User user){
+        return UserDTO.builder().
+                userId(user.getUserId()).
+                username(user.getUsername()).
+                password(user.getPassword()).
+                role(user.getRole()).
+                build();
+    }
+
+    public static User mapUserDTOToUser(UserDTO userDTO){
+        return User.builder().
+                        username(userDTO.username()).
+                password(userDTO.password()).
+                role(userDTO.role()).
+                build();
+    }
+
+    public static List<UserDTO> mapUserListToUserDTOList(List<User> userList){
+        return userList.stream().map(UserMapper::mapUserToUserDTO).toList();
+    }
+}

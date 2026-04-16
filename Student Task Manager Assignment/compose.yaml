@@ -5,8 +5,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: ntt
-      POSTGRES_USER: ntt
       POSTGRES_DB: nttstudents
+      POSTGRES_USER: ntt
+      POSTGRES_PASSWORD: ntt
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
