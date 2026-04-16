@@ -1,5 +1,6 @@
 package org.nttdata.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
+@Builder
 @Table(name="tasks")
 public class Task {
     @Id
@@ -28,5 +30,6 @@ public class Task {
     @ManyToOne
     @NonNull
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User owner;
 }

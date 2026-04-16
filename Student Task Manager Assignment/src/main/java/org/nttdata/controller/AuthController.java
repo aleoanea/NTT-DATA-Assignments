@@ -10,32 +10,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/auth")
+public class AuthController {
+
     private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
-    @GetMapping("ping")
-    public ResponseEntity<String> ping(){
-        return ResponseEntity.ok("ok");
-    }
-
-    @GetMapping("all")
-    public ResponseEntity<List<UserDTO>> getAllUsers(){
-        return ResponseEntity.ok(userService.findAll());
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
-        return ResponseEntity.ok(userService.getUserById(id));
-    }
 
     @PostMapping("register")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
@@ -44,18 +31,7 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
-        return ResponseEntity.ok(userService.update(id,userDTO));
-    }
-
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
-        userService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/login")
+    @PostMapping("login")
     public String authenticateAndGenerateToken(@RequestBody AuthRequest authRequest){
 
         Authentication authentication= authenticationManager.authenticate(

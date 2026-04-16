@@ -29,10 +29,9 @@ public class SecurityConfig{
     SecurityFilterChain securityFilerChain(HttpSecurity http){
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/users/register","/api/users/login","/error").permitAll()
-                        .requestMatchers("/api/users/delete", "/api/users/delete/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/update","/api/users/update/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/get","/api/users/get/**").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/register","/api/auth/login","/error").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/tasks/**").hasRole("USER")
 
                         // All other endpoints require authentication
                         .anyRequest().authenticated())
