@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: nttstudents-database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ntt
+      POSTGRES_USER: ntt
+      POSTGRES_DB: nttstudents
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
