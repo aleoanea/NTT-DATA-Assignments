@@ -3,6 +3,7 @@ package org.nttdata.controller;
 import lombok.RequiredArgsConstructor;
 import org.nttdata.dto.TaskDto;
 import org.nttdata.service.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class TaskController {
 
     @GetMapping("my")
     public ResponseEntity<List<TaskDto>> getMyTasks(Authentication authentication) {
+        if (authentication == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         String username = authentication.getName();
         return ResponseEntity.ok(taskService.getTasksByOwner(username));
     }
