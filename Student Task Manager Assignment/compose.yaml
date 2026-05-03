@@ -11,5 +11,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    build: .
+    container_name: nttstudents-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nttstudents
+      SPRING_DATASOURCE_USERNAME: ntt
+      SPRING_DATASOURCE_PASSWORD: ntt
+
 volumes:
   postgres_data:
