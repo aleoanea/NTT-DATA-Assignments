@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-task-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-task-manager
+  template:
+    metadata:
+      labels:
+        app: student-task-manager
+    spec:
+      containers:
+        - name: student-task-manager
+          image: studenttaskmanagerassignment-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/nttstudents
+            - name: SPRING_DATASOURCE_USERNAME
+              value: ntt
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: ntt
